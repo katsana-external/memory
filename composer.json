@@ -1,45 +1,61 @@
 {
-    "name": "orchestra/memory",
-    "description": "Memory Component for Orchestra Platform",
-    "homepage": "http://orchestraplatform.com/docs/latest/components/memory/",
-    "keywords": ["orchestra-platform", "orchestral", "laravel", "config", "database-config"],
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Mior Muhammad Zaki",
-            "email": "crynobone@gmail.com",
-            "homepage": "https://github.com/crynobone"
-        }
+  "name": "orchestra/memory",
+  "description": "Memory Component for Orchestra Platform",
+  "homepage": "http://orchestraplatform.com/docs/latest/components/memory/",
+  "keywords": [
+    "orchestra-platform",
+    "orchestral",
+    "laravel",
+    "config",
+    "database-config"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Mior Muhammad Zaki",
+      "email": "crynobone@gmail.com",
+      "homepage": "https://github.com/crynobone"
+    }
+  ],
+  "autoload": {
+    "classmap": [
+      "database/migrations"
     ],
-    "autoload": {
-        "classmap": [
-            "database/migrations"
-        ],
-        "psr-4": {
-            "Orchestra\\Memory\\" : "src/"
-        }
+    "psr-4": {
+      "Orchestra\\Memory\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Orchestra\\Memory\\Tests\\": "tests/"
+    }
+  },
+  "require": {
+    "php": "^8.0",
+    "illuminate/database": "^9.0",
+    "orchestra/contracts": "7.x-dev",
+    "orchestra/support": "7.x-dev"
+  },
+  "require-dev": {
+    "orchestra/testbench": "^7.0"
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "7.0-dev"
+    }
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "minimum-stability": "dev",
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/katsana-external/contracts"
     },
-    "autoload-dev": {
-        "psr-4": {
-            "Orchestra\\Memory\\Tests\\" : "tests/"
-        }
-    },
-    "require": {
-        "php": "^7.3 || ^8.0",
-        "illuminate/database": "^8.37",
-        "orchestra/contracts": "^6.0",
-        "orchestra/support": "^6.0"
-    },
-    "require-dev": {
-        "orchestra/testbench": "^6.17"
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "6.0-dev"
-        }
-    },
-    "config": {
-        "sort-packages": true
-    },
-    "minimum-stability": "dev"
+    {
+      "type": "vcs",
+      "url": "https://github.com/katsana-external/support"
+    }
+  ]
 }
