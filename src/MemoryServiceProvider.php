@@ -10,10 +10,8 @@ class MemoryServiceProvider extends ServiceProvider
 {
     /**
      * Register the service provider.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->app->singleton('orchestra.memory', function (Container $app) {
             return new MemoryManager($app);
@@ -22,18 +20,12 @@ class MemoryServiceProvider extends ServiceProvider
 
     /**
      * Bootstrap the application events.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
-        $path = \realpath(__DIR__.'/../');
+        $path = \realpath(__DIR__ . '/../');
 
-        $this->addConfigComponent('orchestra/memory', 'orchestra/memory', "{$path}/config");
-
-        if (! $this->hasPackageRepository()) {
-            $this->bootUnderLaravel($path);
-        }
+        $this->registerConfiguration($path);
 
         $this->loadMigrationsFrom([
             "{$path}/database/migrations",
@@ -48,9 +40,7 @@ class MemoryServiceProvider extends ServiceProvider
     protected function bootEvents(): void
     {
         $this->callAfterResolving('orchestra.memory', function ($manager, $app) {
-            $namespace = $this->hasPackageRepository() ? 'orchestra/memory::' : 'orchestra.memory';
-
-            $manager->setConfiguration($app->make('config')->get($namespace));
+            $manager->setConfiguration($app->make('config')->get('orchestra.memory'));
         });
 
         $this->app['events']->listen(RequestReceived::class, function ($event) {
@@ -63,14 +53,14 @@ class MemoryServiceProvider extends ServiceProvider
     }
 
     /**
-     * Boot under Laravel setup.
+     * Register configuration.
      */
-    protected function bootUnderLaravel(string $path): void
+    protected function registerConfiguration(string $path): void
     {
         $this->mergeConfigFrom("{$path}/config/config.php", 'orchestra.memory');
 
         $this->publishes([
-            "{$path}/config/config.php" => \config_path('orchestra/memory.php'),
-        ]);
+            "{$path}/config/config.php" => config_path('orchestra/memory.php'),
+        ], ['orchestra-memory', 'laravel-config']);
     }
 }
